@@ -1,9 +1,9 @@
-var _a = require("electron"),
-  app = _a.app,
-  BrowserWindow = _a.BrowserWindow;
-var path = require("path");
-var isDev = require("electron-is-dev");
-var mainWindow;
+const { app, BrowserWindow } = require("electron");
+const path = require("path");
+const isDev = require("electron-is-dev");
+
+let mainWindow;
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 480,
@@ -14,27 +14,31 @@ function createWindow() {
       devTools: isDev,
     },
   });
+
   mainWindow.loadURL(
     isDev
       ? "http://localhost:3000"
-      : "file://".concat(path.join(__dirname, "../build/index.html"))
+      : `file://${path.join(__dirname, "../build/index.html")}`
   );
+
   if (isDev) {
     mainWindow.webContents.openDevTools({ mode: "detach" });
   }
+
   mainWindow.setResizable(true);
-  mainWindow.on("closed", function () {
-    return (mainWindow = null);
-  });
+  mainWindow.on("closed", () => (mainWindow = null));
   mainWindow.focus();
 }
+
 app.on("ready", createWindow);
-app.on("window-all-closed", function () {
+
+app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
   }
 });
-app.on("activate", function () {
+
+app.on("activate", () => {
   if (mainWindow === null) {
     createWindow();
   }
