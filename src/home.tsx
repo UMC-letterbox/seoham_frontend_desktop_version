@@ -6,6 +6,7 @@ import { useState } from "react";
 import { ImageResize } from "quill-image-resize-module-ts";
 import { Outlet, useNavigate } from "react-router-dom";
 import QuillToolbar, { formats, modules } from "EditorToolBar";
+import { Link } from "react-router-dom";
 
 Quill.register("modules/ImageResize", ImageResize);
 
@@ -81,6 +82,7 @@ function Home() {
         <BUTTON submit={true} onClick={onClick} pay="shopping">
           Second Button
         </BUTTON>
+        <Link to={"/letterTest"}><button>letterTest</button></Link>
         <h1>한번 테스트로 텍스트 에디터 생성해보기</h1>
         {back === true ? (
           <div>

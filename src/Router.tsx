@@ -1,3 +1,4 @@
+import LetterTest from "Pages/LetterTest";
 import { createBrowserRouter, BrowserRouter, Route, Routes } from "react-router-dom";
 import Test from "./Components/Test";
 
@@ -7,5 +8,9 @@ const Router = createBrowserRouter([
     path:"/",
     element:<Test />
   },
+  {
+    path: "/letterTest",
+    element: <LetterTest />
+  }
 ])
 export default Router;
