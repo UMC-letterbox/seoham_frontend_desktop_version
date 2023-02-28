@@ -1,6 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useRecoilSnapshot, useRecoilState } from "recoil";
+import { letterState } from "atom";
 
 const LetterWrap = styled.div<{letterName:string}>`
     height: 90vh;
@@ -102,6 +104,9 @@ background-size: 100% auto;
 
 function LetterTest(){
     const [Selected, setSelected] = useState("");
+    const [Letter, setLetter] = useRecoilState(letterState)
+    const tmp_letter = Letter.split('</p>').join(',').split('</h1>').join(',').split('</h2>').join(',').split('</h3>').join(',').split('</h4>').join(',').split('</h5>').join(',').split('</h6>').join(',').split(',')
+    console.log(tmp_letter)
     const handleSelect = (e:any) => {
         setSelected(e.target.value);
         console.log(typeof(Selected))
@@ -132,10 +137,9 @@ function LetterTest(){
             <LetterWrap letterName={`${Selected}`}>
                 <img src={`img/${Selected}.png`} alt={`${Selected}`}/>
                 <div>
-                    <p>test</p>
-                    <p>test test</p>
-                    <p>와 편지! 이건 편지입니다! 테스트 중이에요! 길게길게 써도 잘 넘어가는지 테스트 하려고 아무말이나 쓰고 있답니다! 언제까지 써야지 적절할까요? 지금일까요? 아마도 지금?</p>
+                    {/* {Letter} */}
                 </div>
+                <div dangerouslySetInnerHTML={{__html:Letter}}></div>
             </LetterWrap>
         </div>
     )

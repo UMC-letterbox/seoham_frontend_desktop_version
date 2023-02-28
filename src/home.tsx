@@ -7,6 +7,8 @@ import { ImageResize } from "quill-image-resize-module-ts";
 import { Outlet, useNavigate } from "react-router-dom";
 import QuillToolbar, { formats, modules } from "EditorToolBar";
 import { Link } from "react-router-dom";
+import { letterState } from "atom";
+import { useRecoilState } from "recoil";
 
 Quill.register("modules/ImageResize", ImageResize);
 
@@ -73,6 +75,12 @@ function Home() {
       Settest(true);
     }
   };
+  // 저장 버튼 -> recoil 임시 사용
+  const [letter, setLetter] = useRecoilState(letterState)
+  const onClickSave = () => {
+    setLetter(value)
+    console.log(value)
+  }
   return (
     <div>
       <section>
@@ -120,6 +128,7 @@ function Home() {
       </section>
       {/* 이렇게 한꺼번에 묶으면 되는구나! 이렇게 여러개 하면 되겠네!*/}
       <Outlet />
+      <button onClick={onClickSave}>저장</button>
     </div>
   );
 }
