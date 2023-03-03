@@ -12,3 +12,7 @@
   <img src="https://img.shields.io/badge/styledcomponents-DB7093?style=for-the-badge&logo=styledcompoenents&logoColor=black"> 
   <img src="https://img.shields.io/badge/electron-47848F?style=for-the-badge&logo=electron&logoColor=black"> 
 </div>
+
+## This Branch is..
+ - Author : 이해연 / 우미
+ - View 페이지의 편지 출력을 담당합니다.
