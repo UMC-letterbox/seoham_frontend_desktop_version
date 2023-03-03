@@ -9,8 +9,8 @@ import QuillToolbar, { formats, modules } from "EditorToolBar";
 import { useRecoilState } from "recoil";
 import { letterState } from "atom";
 import { Link } from "react-router-dom";
-import TagCreater from "TagCreater";
-import CreateTag from "TagMaker";
+import TagCreater from "Components/TagCreater";
+import CreateTag from "./Components/TagMaker";
 
 Quill.register("modules/ImageResize", ImageResize);
 
