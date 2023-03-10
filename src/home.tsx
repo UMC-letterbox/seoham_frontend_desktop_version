@@ -9,7 +9,7 @@ import QuillToolbar, { formats, modules } from "EditorToolBar";
 import { useRecoilState } from "recoil";
 import { letterState } from "atom";
 import { Link } from "react-router-dom";
-import TagCreater from "Components/TagCreater";
+import TagCreater from "./Components/TagCreater";
 import CreateTag from "./Components/TagMaker";
 
 Quill.register("modules/ImageResize", ImageResize);
@@ -32,8 +32,8 @@ Quill.register(Font, true);
 
 function Home() {
   const [value, setValue] = useState("");
-  const [test, Settest] = useState(true);
-  const [back, setBack] = useState(true);
+  const [test, Settest] = useState<boolean>(true);
+  const [back, setBack] = useState<boolean>(true);
   const navigate = useNavigate();
   const onImage = () => {
     if (back === true) {
