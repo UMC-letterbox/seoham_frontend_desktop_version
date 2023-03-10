@@ -6,6 +6,11 @@ import { useState } from "react";
 import { ImageResize } from "quill-image-resize-module-ts";
 import { Outlet, useNavigate } from "react-router-dom";
 import QuillToolbar, { formats, modules } from "EditorToolBar";
+import { useRecoilState } from "recoil";
+import { letterState } from "atom";
+import { Link } from "react-router-dom";
+import TagCreater from "./Components/TagCreater";
+import CreateTag from "./Components/TagMaker";
 
 Quill.register("modules/ImageResize", ImageResize);
 
@@ -25,36 +30,10 @@ const Font = Quill.import("attributors/class/font");
 Font.whitelist = ["arial", "buri", "gangwon"];
 Quill.register(Font, true);
 
-// const Custom_module = {
-//   //백그라운드는 거스를 경우 삭제하면 간단하게 없어진다!
-//   toolbar: {
-//     container: [
-//       [{ font: ["arial", "buri", "gangwon"] }],
-//       [{ header: [1, 2, 3, 4, 5, 6, false] }],
-//       [{ size: ["small", false, "large", "huge"] }],
-//       ["bold", "italic", "underline", "strike", "blockquote"],
-//       [
-//         { list: "ordered" },
-//         { list: "bullet" },
-//         { indent: "-1" },
-//         { indent: "+1" },
-//         { align: [] },
-//       ],
-//       [{ color: [] }, { background: [] }],
-//       ["image", "video"],
-//       ["clean"],
-//     ],
-//   },
-//   ImageResize: {
-//     parchment: Quill.import("parchment"),
-//     modules: ["Resize", "DisplaySize"],
-//   },
-// };
-
 function Home() {
   const [value, setValue] = useState("");
-  const [test, Settest] = useState(true);
-  const [back, setBack] = useState(true);
+  const [test, Settest] = useState<boolean>(true);
+  const [back, setBack] = useState<boolean>(true);
   const navigate = useNavigate();
   const onImage = () => {
     if (back === true) {
@@ -72,6 +51,12 @@ function Home() {
       Settest(true);
     }
   };
+  // 저장 버튼 -> recoil 임시 사용
+  const [letter, setLetter] = useRecoilState(letterState);
+  const onClickSave = () => {
+    setLetter(value);
+    console.log(value);
+  };
   return (
     <div>
       <section>
@@ -81,9 +66,22 @@ function Home() {
         <BUTTON submit={true} onClick={onClick} pay="shopping">
           Second Button
         </BUTTON>
+        <Link to={"/letterTest"}>
+          <button>letterTest</button>
+        </Link>
         <h1>한번 테스트로 텍스트 에디터 생성해보기</h1>
         {back === true ? (
           <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <TagCreater />
+            </div>
             <QuillToolbar />
             <ReactQuill
               style={{ height: "400px", margin: "4px" }}
@@ -98,6 +96,17 @@ function Home() {
           </div>
         ) : (
           <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "4px",
+              }}
+            >
+              <TagCreater />
+            </div>
             <QuillToolbar />
             <ReactQuill
               style={{
@@ -118,6 +127,7 @@ function Home() {
       </section>
       {/* 이렇게 한꺼번에 묶으면 되는구나! 이렇게 여러개 하면 되겠네!*/}
       <Outlet />
+      <button onClick={onClickSave}>저장</button>
     </div>
   );
 }

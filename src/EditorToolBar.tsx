@@ -6,7 +6,7 @@ import "./styles/quillstyle.css";
 Quill.register("modules/ImageResize", ImageResize);
 
 const Size = Quill.import("formats/size");
-Size.whitelist = ["extra-small", "small", "medium", "large"];
+Size.whitelist = ["small", "medium", "large", "huge"];
 Quill.register(Size, true);
 
 // Add fonts to whitelist and register them

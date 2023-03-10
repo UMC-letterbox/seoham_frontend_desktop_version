@@ -38,6 +38,22 @@
   font-family: "AritaBuri";
 }
 
+.ql-size-small,
+.ql-size span[data-value="small"]::before {
+  font-size: 12px !important;
+}
+.ql-size-huge,
+.ql-size span[data-value="huge"]::before {
+  font-size: 20px !important;
+}
+.ql-size-medium,
+.ql-size span[data-value="medium"]::before {
+  font-size: 14px !important;
+}
+.ql-size-large,
+.ql-size span[data-value="large"]::before {
+  font-size: 18px !important;
+}
 /* .ql-font-buri,
 .ql-font-buri[data-value="buri"]::before {
   font-family: "AritaBuri";
