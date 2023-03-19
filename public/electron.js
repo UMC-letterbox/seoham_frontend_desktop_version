@@ -6,8 +6,10 @@ var isDev = require("electron-is-dev");
 var mainWindow;
 function createWindow() {
   mainWindow = new BrowserWindow({
-    width: 480,
-    height: 720,
+    width: 1080,
+    height: 700,
+    minWidth: 900,
+    minHeight: 650,
     webPreferences: {
       nodeIntegration: true,
       enableRemoteModule: true,
