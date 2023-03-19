@@ -7,6 +7,11 @@ import { useState } from 'react';
 import { Letters_tag1, Letters_tag2, LetterType } from 'dummydata';
 import { LetterPaper, LetterContent } from 'styles/LetterTestCss';
 
+import { useRecoilSnapshot, useRecoilState } from "recoil";
+import { letterState } from "atom"; // react-quill에서 넘어오는 버전으로 수정해서 다시 만들기
+
+
+
 const DividedPage = styled.div`
     display: flex;
     flex-direction: row;
@@ -74,6 +79,8 @@ function MenuTest(){
     // const [tagName, setTagName] = useState(location.state.tagName) //이게 setTagId가 되는게 좋을지도? 아직 api 연결을 안해봐서 어떤게 더 나은지는 잘 모르겠어요
     // const [tagId, setTagId] = useState(location.state.tagId) //이것도 추가하는 방향으로 나중에 수정
     const [tag, setTag] = useState([location.state.tagName, location.state.tagId, location.state.tagColor])
+    const [Letter, setLetter] = useRecoilState(letterState)
+
     console.log("편지 확인 페이지에서의 리스트: ", tag)
     console.log("letter Id:", location.state.letterId)
     
@@ -117,7 +124,8 @@ function MenuTest(){
                         <LetterPaper paper={(currentLetter.paper)}/>
                         <LetterContent paper={Number(currentLetter.paper)}>
                             <p className='sender'><span>{currentLetter.sender}</span>님에게서 온 편지</p>
-                            <p className='content'>{currentLetter.content}</p>
+                            {/* <p className='content'>{currentLetter.content}</p> */}
+                            <div className='content' dangerouslySetInnerHTML={{__html:Letter}}></div>
                             <p className='date'>{currentLetter.date}</p>
                         </LetterContent>
                     </div>

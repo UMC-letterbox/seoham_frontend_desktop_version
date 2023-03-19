@@ -77,6 +77,13 @@ export const LetterContent = styled.div<{paper:number}>`
         // height: 70%;
         // background-color: yellow;
         overflow: auto;
+        p{
+            img{
+                width: 400px;
+                height: 200px;
+                object-fit: contain;
+            }
+        }
     }
     /*스크롤바 커스텀 하고 싶은데 -webkit~~ 이게 안먹히네요*/
     .date{
