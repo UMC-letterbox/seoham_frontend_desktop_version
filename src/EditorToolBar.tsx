@@ -1,7 +1,7 @@
-import React from "react";
 import { Quill } from "react-quill";
 import { ImageResize } from "quill-image-resize-module-ts";
 import "./styles/quillstyle.css";
+import "react-quill/dist/quill.snow.css";
 
 Quill.register("modules/ImageResize", ImageResize);
 
@@ -13,45 +13,6 @@ Quill.register(Size, true);
 const Font = Quill.import("attributors/class/font");
 Font.whitelist = ["arial", "buri", "gangwon"];
 Quill.register(Font, true);
-
-// Modules object for setting up the Quill editor
-export const modules = {
-  toolbar: {
-    container: "#toolbar",
-    handlers: {},
-  },
-  ImageResize: {
-    parchment: Quill.import("parchment"),
-    modules: ["Resize", "DisplaySize"],
-  },
-  history: {
-    delay: 500,
-    maxStack: 100,
-    userOnly: true,
-  },
-};
-
-// Formats objects for setting up the Quill editor
-export const formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "align",
-  "strike",
-  "script",
-  "blockquote",
-  "background",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "color",
-  "code-block",
-];
 
 // Quill Toolbar component
 export const QuillToolbar = () => (
