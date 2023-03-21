@@ -39,13 +39,13 @@ function ViewLetterList({tagName, tagId, tagColor}:propsType){
     const navigate = useNavigate();
     const onClickLetter = (e:any) => {
         const letterId = e.target.id;
-        console.log("id:", letterId)
+        console.log("id::::::", letterId)
         navigate("/letter", {state: {letterId, tagName, tagId, tagColor}})
     }
     console.log(Letters_tag1)
-    Letters_tag1.map((letter) => {
-        console.log(letter, typeof(letter))
-    })
+    // Letters_tag1.map((letter) => {
+    //     console.log(letter, typeof(letter))
+    // })
     
     return(
         <div style={{width:"50%"}}>

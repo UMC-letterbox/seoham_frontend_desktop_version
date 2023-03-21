@@ -2,6 +2,7 @@ import { useState } from "react"
 import { ViewTagGrid, TagWrap, SettingWrap, MyBtn} from "styles/MaintestCss"
 import { TagList } from "dummydata"
 import Tag from "./Tag"
+import { useNavigate } from "react-router-dom";
 
 interface propsType {
     setTag:Function;
@@ -14,8 +15,15 @@ function ViewTag({setTag}:propsType){
     const onClickSetting = () => {
         console.log("setting")
     }
+    const navigate = useNavigate();
+    const onClick = () => {
+        navigate("/")
+    }
     return(
             <ViewTagGrid>
+                {/* 게시판 페이지로 돌아가기 */}
+                <button onClick={onClick} style={{background:"transparent", border:"none", marginLeft:"20px", marginTop:"20px"}}><img src="/img/left-arrow.png" style={{width:"12px", height:"12px"}}/></button>
+
                 {/* 태그 선택 파트 */}
                 <h1 style={{textAlign: "center"}}>서함</h1>
                 <TagWrap>

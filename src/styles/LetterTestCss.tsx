@@ -41,6 +41,7 @@ export const LetterPaper = styled.img.attrs((props:propsType) => {
         return({src:`${Winter}`})
     }
 })`
+    width: 70%;
     height: 100vh;
     position: absolute;
     top: 50%;
@@ -53,12 +54,12 @@ export const LetterContent = styled.div<{paper:number}>`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    top: ${props => props.paper==3 ? "40%":"50%"};
+    top: 50%;
     left: 50%;
     transform: ${props => props.paper==3 ? "translate(-50%, -60%)":
         props.paper==2 || props.paper==6 ? "translate(-50%, -30%)":
         "translate(-50%, -50%)"};
-    width: 60%;
+    width: ${(props) => props.paper==7 ? "55%" : "60%"};
     padding: 20px 10px;
     height: ${(props) => props.paper==3||props.paper==4 ? "50%"
         :
@@ -79,7 +80,8 @@ export const LetterContent = styled.div<{paper:number}>`
         overflow: auto;
         p{
             img{
-                width: 400px;
+                width: 100%;
+                // height: 20%;
                 height: 200px;
                 object-fit: contain;
             }
@@ -91,4 +93,23 @@ export const LetterContent = styled.div<{paper:number}>`
         text-align: end;
     }
 
+`
+export const ContentDiv = styled.div<{clickprops:boolean}>`
+    overflow: ${(props) => props.clickprops == true ? "auto" : "hidden"};
+    p{
+        img{
+            width: 100%;
+            // height: 20%;
+            height: 200px;
+            object-fit: contain;
+        }
+    }
+`
+export const PlusBtn = styled.button<{clickprops:boolean}>`
+    display: ${(props) =>
+        props.clickprops == true ? "none" : "block"
+    };
+    color: gray;
+    background: transparent;
+    border: 0;
 `
