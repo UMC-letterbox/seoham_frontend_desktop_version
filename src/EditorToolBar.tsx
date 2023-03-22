@@ -1,7 +1,7 @@
-import React from "react";
 import { Quill } from "react-quill";
 import { ImageResize } from "quill-image-resize-module-ts";
 import "./styles/quillstyle.css";
+import "react-quill/dist/quill.snow.css";
 
 Quill.register("modules/ImageResize", ImageResize);
 
@@ -14,48 +14,9 @@ const Font = Quill.import("attributors/class/font");
 Font.whitelist = ["arial", "buri", "gangwon"];
 Quill.register(Font, true);
 
-// Modules object for setting up the Quill editor
-export const modules = {
-  toolbar: {
-    container: "#toolbar",
-    handlers: {},
-  },
-  ImageResize: {
-    parchment: Quill.import("parchment"),
-    modules: ["Resize", "DisplaySize"],
-  },
-  history: {
-    delay: 500,
-    maxStack: 100,
-    userOnly: true,
-  },
-};
-
-// Formats objects for setting up the Quill editor
-export const formats = [
-  "header",
-  "font",
-  "size",
-  "bold",
-  "italic",
-  "underline",
-  "align",
-  "strike",
-  "script",
-  "blockquote",
-  "background",
-  "list",
-  "bullet",
-  "indent",
-  "link",
-  "image",
-  "color",
-  "code-block",
-];
-
 // Quill Toolbar component
 export const QuillToolbar = () => (
-  <div id="toolbar">
+  <div id="toolbar" style={{ margin: "4px" }}>
     <span className="ql-formats">
       <select className="ql-font" defaultValue="arial">
         <option value="arial">Arial</option>
@@ -85,19 +46,12 @@ export const QuillToolbar = () => (
       <button className="ql-blockquote" />
     </span>
     <span className="ql-formats">
-      <button className="ql-list" value="ordered" />
-      <button className="ql-list" value="bullet" />
-      <button className="ql-indent" value="-1" />
-      <button className="ql-indent" value="+1" />
-    </span>
-    <span className="ql-formats">
       <select className="ql-align" />
       <select className="ql-color" />
       <select className="ql-background" />
     </span>
     <span className="ql-formats">
       <button className="ql-image" />
-      <button className="ql-video" />
     </span>
     <span className="ql-formats">
       <button className="ql-clean" />

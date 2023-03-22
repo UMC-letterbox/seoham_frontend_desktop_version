@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useRecoilSnapshot, useRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { letterState } from "atom";
 
 const LetterWrap = styled.div<{ letterName: string }>`
@@ -90,6 +90,7 @@ const LetterCss = styled.div<{ imgSrc: string }>`
 function LetterTest() {
   const [Selected, setSelected] = useState("");
   const [Letter, setLetter] = useRecoilState(letterState);
+  // const Letter = useRecoilValue(letterState);
   const tmp_letter = Letter.split("</p>")
     .join(",")
     .split("</h1>")

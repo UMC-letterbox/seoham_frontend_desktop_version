@@ -2,15 +2,17 @@ import { isLogAtom } from "atom";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import {
+  LineInfoText,
   LoginButton,
-  LoginInfoText,
+  FindInfoText,
   LoginInputDiv,
   StyledInput,
   TextHeader,
+  LongInputDiv,
+  LoginErrorDiv,
 } from "./loginStyled";
 
 function LoginPage() {
@@ -33,30 +35,30 @@ function LoginPage() {
     formState: { errors, isValid },
   } = useForm<{ email: string; password: string }>({ mode: "onChange" });
 
-  // const onSubmit = handleSubmit((data) => {
-  //   fetch("https://seohamserver.shop/user/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       email: data.email,
-  //       passWord: data.password,
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       if (res.isSuccess === true) {
-  //         localStorage.setItem("login_token", res.result.jwt);
-  //         localStorage.setItem("userIdx", res.result.userIdx);
-  //         setIsLoggedIn(true);
-  //         alert("로그인 되었습니다");
-  //         navigate("/edit");
-  //       } else {
-  //         alert("이메일과 비밀번호를 다시 한 번 확인해주세요");
-  //       }
-  //     });
-  // });
+  /* const onSubmit = handleSubmit((data) => {
+    fetch("https://seohamserver.shop/user/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: data.email,
+        passWord: data.password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.isSuccess === true) {
+          localStorage.setItem("login_token", res.result.jwt);
+          localStorage.setItem("userIdx", res.result.userIdx);
+          setIsLoggedIn(true);
+          alert("로그인 되었습니다");
+          navigate("/edit");
+        } else {
+          alert("이메일과 비밀번호를 다시 한 번 확인해주세요");
+        }
+      });
+   }); */
 
   const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -98,8 +100,12 @@ function LoginPage() {
           {...register("email", { required: true, pattern: regExpEm })}
         />
       </LoginInputDiv>
-      {errors.email?.type === "required" && <div>이메일을 입력해주세요</div>}
-      {errors.email?.type === "pattern" && <div>잘못된 이메일 형식입니다</div>}
+      {errors.email?.type === "required" && (
+        <LoginErrorDiv>이메일을 입력해주세요</LoginErrorDiv>
+      )}
+      {errors.email?.type === "pattern" && (
+        <LoginErrorDiv>잘못된 이메일 형식입니다</LoginErrorDiv>
+      )}
       <LoginInputDiv>
         <StyledInput
           placeholder="비밀번호 입력"
@@ -121,41 +127,38 @@ function LoginPage() {
             <img
               src="/img/show.png"
               style={{ width: "18.33px", height: "15.27px" }}
+              alt="show"
             />
           ) : (
             <img
               src="/img/hide.png"
               style={{ width: "18.33px", height: "15.27px" }}
+              alt="hide"
             />
           )}
         </button>
       </LoginInputDiv>
       {errors.password?.type === "pattern" && (
-        <div>
+        <LoginErrorDiv>
           비밀번호는 영문+숫자+특수문자 조합으로 8자리 이상 입력해주세요
-        </div>
+        </LoginErrorDiv>
       )}
-      <div
-        style={{
-          justifyContent: "center",
-          display: "flex",
-          paddingTop: "48px",
-          paddingBottom: "20px",
-        }}
-      >
+      <LongInputDiv>
         <LoginButton type="submit" disabled={!isValid} onClick={onSubmit}>
           로그인
         </LoginButton>
-      </div>
-      <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-        <Link to="/create">
-          <LoginInfoText>계정찾기</LoginInfoText>
+      </LongInputDiv>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Link to="/find/Id">
+          <FindInfoText>계정찾기</FindInfoText>
         </Link>
-        <Link to="/create">
-          <LoginInfoText>비밀번호찾기</LoginInfoText>
+        <LineInfoText>ㅣ</LineInfoText>
+        <Link to="/find/Pw">
+          <FindInfoText>비밀번호찾기</FindInfoText>
         </Link>
+        <LineInfoText>ㅣ</LineInfoText>
         <Link to="/create">
-          <LoginInfoText>회원가입</LoginInfoText>
+          <FindInfoText>회원가입</FindInfoText>
         </Link>
       </div>
     </div>
