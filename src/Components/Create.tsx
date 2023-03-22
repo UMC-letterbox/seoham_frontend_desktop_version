@@ -8,6 +8,7 @@ import {
   CreateStyledInputButton,
   CreateTextH1,
   CreateTextH2,
+  ErrorConfirmDiv,
   ErrorDiv,
   ErrorPwDiv,
   LoginButton,
@@ -183,7 +184,9 @@ function CreatePage() {
         <CreateTextH1>회원가입</CreateTextH1>
       </LoginInputDiv>
       <LongInputDiv></LongInputDiv>
-      <CreateTextH2>계정</CreateTextH2>
+      <CreateTextH2>
+        계정&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      </CreateTextH2>
       <LoginInputDiv>
         <CreateStyledInput
           placeholder="이메일을 입력해주세요"
@@ -214,7 +217,7 @@ function CreatePage() {
           확인
         </CreateStyledInputButton>
       </LoginInputDiv>
-      <CreateTextH2>닉네임</CreateTextH2>
+      <CreateTextH2>닉네임&nbsp;&nbsp;&nbsp;&nbsp;</CreateTextH2>
       <LoginInputDiv>
         <CreateStyledInput
           placeholder="닉네임을 입력해주세요(2~8자)"
@@ -273,6 +276,9 @@ function CreatePage() {
           )}
         </button>
       </LoginInputDiv>
+      {errors.password?.type === "required" && (
+        <ErrorDiv>비밀번호를 입력해주세요</ErrorDiv>
+      )}
       {errors.password?.type === "pattern" && (
         <ErrorPwDiv>
           비밀번호는 영문+숫자+특수문자 조합으로 8자리 이상 입력해주세요
@@ -319,11 +325,11 @@ function CreatePage() {
           )}
         </button>
       </LoginInputDiv>
-      {errors.passwordConfirm?.type === "pattern" && (
+      {errors.passwordConfirm?.type === "required" && (
         <ErrorDiv>비밀번호 확인을 위해 입력해주세요</ErrorDiv>
       )}
       {errors.passwordConfirm && (
-        <ErrorDiv>{errors.passwordConfirm.message}</ErrorDiv>
+        <ErrorConfirmDiv>{errors.passwordConfirm.message}</ErrorConfirmDiv>
       )}
       <LongInputDiv>
         <LoginButton type="submit" disabled={!isValid} onClick={clickSignUp}>

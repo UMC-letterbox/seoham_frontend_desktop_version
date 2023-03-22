@@ -6,13 +6,13 @@ import {
   FindButton,
   LongInputDiv,
   NotFindButton,
-  CreateTextH2,
   LoginInputDiv,
   CreateStyledInput,
-  CreateStyledInputButton,
   ChangePwInput,
   InfoFindButton,
   ErrorDiv,
+  PWfindStyledInputButton,
+  CreateTextH2,
 } from "./loginStyled";
 
 interface UserValue {
@@ -132,9 +132,9 @@ function FindPwPage() {
           required
           {...register("email", { required: true })}
         />
-        <CreateStyledInputButton onClick={emailCheck}>
+        <PWfindStyledInputButton onClick={emailCheck}>
           인증번호 전송
-        </CreateStyledInputButton>
+        </PWfindStyledInputButton>
       </LoginInputDiv>
       <LoginInputDiv>
         <CreateStyledInput
@@ -144,9 +144,9 @@ function FindPwPage() {
           value={admireNumber}
           onChange={handleInputAdmire}
         />
-        <CreateStyledInputButton onClick={certifyCheck}>
+        <PWfindStyledInputButton onClick={certifyCheck}>
           확인
-        </CreateStyledInputButton>
+        </PWfindStyledInputButton>
       </LoginInputDiv>
       <CreateTextH2>비밀번호 수정</CreateTextH2>
       <LoginInputDiv>

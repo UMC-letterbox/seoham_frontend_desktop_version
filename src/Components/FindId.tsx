@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import {
   CreateStyledInput,
   CreateStyledInputButton,
-  ErrorDiv,
   ErrorEmailCheckDiv,
   FindButton,
   InfoFindButton,

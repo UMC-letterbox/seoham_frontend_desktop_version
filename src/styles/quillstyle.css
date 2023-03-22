@@ -26,6 +26,13 @@
   font-family: "GangwonEduHyeonokT_OTFMediumA";
 }
 
+blockquote {
+  background: transparent;
+  border-left: 10px solid #ccc;
+  margin: 5px 0 5px 0;
+  padding-left: 16px;
+}
+
 .ql-font-arial {
   font-family: Arial;
 }
@@ -38,13 +45,22 @@
   font-family: "AritaBuri";
 }
 
+.ql-align-right {
+  text-align: right;
+}
+.ql-align-center {
+  text-align: center;
+}
+.ql-align-left {
+  text-align: left;
+}
+.ql-align-justify {
+  text-align: justify;
+}
+
 .ql-size-small,
 .ql-size span[data-value="small"]::before {
   font-size: 12px !important;
-}
-.ql-size-huge,
-.ql-size span[data-value="huge"]::before {
-  font-size: 20px !important;
 }
 .ql-size-medium,
 .ql-size span[data-value="medium"]::before {
@@ -53,6 +69,10 @@
 .ql-size-large,
 .ql-size span[data-value="large"]::before {
   font-size: 18px !important;
+}
+.ql-size-huge,
+.ql-size span[data-value="huge"]::before {
+  font-size: 20px !important;
 }
 /* .ql-font-buri,
 .ql-font-buri[data-value="buri"]::before {

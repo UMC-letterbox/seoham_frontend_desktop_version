@@ -52,6 +52,8 @@ export const FindHeaderDiv = styled.div`
   justify-content: center;
   margin: 12px 0px 12px 0px;
   display: flex;
+  position: sticky;
+  top: 0;
 `;
 
 //아이디, 비번, 회원가입 버튼 부분
@@ -91,7 +93,7 @@ export const CreateTextH2 = styled.h2`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-left: -25%;
+  margin-left: -200px;
 `;
 
 export const CreateTextH1 = styled.h1`
@@ -128,6 +130,21 @@ export const CreateStyledInputButton = styled.button`
   color: #ef9f9f;
 `;
 
+export const PWfindStyledInputButton = styled.button`
+  width: 75px;
+  height: 25px;
+  background-color: transparent;
+  border-radius: 20px;
+  border: 0.5px solid;
+  border-color: #ef9f9f;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  margin-left: 35px;
+  text-align: center;
+  color: #ef9f9f;
+`;
+
 export const ErrorDiv = styled.div`
   font-weight: 500;
   font-size: 10px;
@@ -136,7 +153,18 @@ export const ErrorDiv = styled.div`
   color: #989898;
   display: flex;
   justify-content: center;
-  margin-left: -10%;
+  margin-left: -150px;
+`;
+
+export const ErrorConfirmDiv = styled.div`
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+  align-items: center;
+  color: #989898;
+  display: flex;
+  justify-content: center;
+  margin-left: -120px;
 `;
 
 export const ErrorEmailCheckDiv = styled.div`
@@ -147,7 +175,7 @@ export const ErrorEmailCheckDiv = styled.div`
   color: #989898;
   display: flex;
   justify-content: center;
-  margin-left: -20%;
+  margin-left: -230px;
 `;
 
 export const ErrorPwDiv = styled.div`
@@ -158,7 +186,7 @@ export const ErrorPwDiv = styled.div`
   color: #989898;
   display: flex;
   justify-content: center;
-  margin-left: -5%;
+  margin-left: 25px;
 `;
 
 export const LoginErrorDiv = styled.div`

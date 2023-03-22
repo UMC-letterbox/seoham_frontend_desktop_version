@@ -16,7 +16,7 @@ Quill.register(Font, true);
 
 // Quill Toolbar component
 export const QuillToolbar = () => (
-  <div id="toolbar">
+  <div id="toolbar" style={{ margin: "4px" }}>
     <span className="ql-formats">
       <select className="ql-font" defaultValue="arial">
         <option value="arial">Arial</option>
@@ -46,19 +46,12 @@ export const QuillToolbar = () => (
       <button className="ql-blockquote" />
     </span>
     <span className="ql-formats">
-      <button className="ql-list" value="ordered" />
-      <button className="ql-list" value="bullet" />
-      <button className="ql-indent" value="-1" />
-      <button className="ql-indent" value="+1" />
-    </span>
-    <span className="ql-formats">
       <select className="ql-align" />
       <select className="ql-color" />
       <select className="ql-background" />
     </span>
     <span className="ql-formats">
       <button className="ql-image" />
-      <button className="ql-video" />
     </span>
     <span className="ql-formats">
       <button className="ql-clean" />

@@ -10,6 +10,11 @@ function QuillCustom() {
   const quillRef = useRef<ReactQuill>(null);
 
   // 저장 버튼 -> recoil 임시 사용
+  // const setLetter = useSetRecoilState(letterState);
+  // const onClickSave = () => {
+  //   setLetter(value);
+  //   console.log(value);
+  // };
   const [letter, setLetter] = useRecoilState(letterState);
   const onClickSave = () => {
     setLetter(value);
@@ -68,13 +73,9 @@ function QuillCustom() {
     "script",
     "blockquote",
     "background",
-    "list",
-    "bullet",
-    "indent",
-    "link",
     "image",
     "color",
-    "code-block",
+    "clean",
   ];
   return (
     <>
