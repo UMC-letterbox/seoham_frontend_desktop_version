@@ -21,49 +21,49 @@ function FindIdPage() {
     setValue,
     formState: { isValid },
   } = useForm<{ nickname: string; findEmail: boolean }>({ mode: "onChange" });
-  const ValidEmail = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const ValidEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    axios
-      .get(
+    try {
+      const res = await axios.get(
         `https://seohamserver.shop/user/check-find-email/?nickName=${watch(
           "nickname"
         )}`,
         {
           headers: { "Content-Type": "application/json" },
         }
-      )
-      .then((res) => {
-        if (res.data.result.exist === true) {
-          alert("닉네임이 유효합니다. 이메일 찾기를 눌러주세요");
-          setValue("findEmail", true);
-        } else {
-          alert("닉네임이 존재하지 않습니다");
-          setValue("findEmail", false);
-        }
-      });
+      );
+      if (res.data.result.exist === true) {
+        alert("닉네임이 유효합니다. 이메일 찾기를 눌러주세요");
+        setValue("findEmail", true);
+      } else {
+        alert("닉네임이 존재하지 않습니다");
+        setValue("findEmail", false);
+      }
+    } catch (error) {
+      alert("서버 오류가 발생했습니다.");
+    }
   };
-  const FindEmail = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const FindEmail = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (watch("findEmail") === true) {
-      axios
-        .get(
+      try {
+        const res = await axios.get(
           `https://seohamserver.shop/user/find-email/?nickName=${watch(
             "nickname"
           )}`,
           {
             headers: { "Content-Type": "application/json" },
           }
-        )
-        .then((res) => {
-          if (res.data.isSuccess === true) {
-            setEmailMessage(
-              ` : 당신의 이메일은 ${res.data.result.email}입니다.`
-            );
-          } else {
-            alert("이메일이 존재하지 않습니다");
-            setEmailMessage("");
-          }
-        });
+        );
+        if (res.data.isSuccess === true) {
+          setEmailMessage(` : 당신의 이메일은 ${res.data.result.email}입니다.`);
+        } else {
+          alert("이메일이 존재하지 않습니다");
+          setEmailMessage("");
+        }
+      } catch (error) {
+        alert("서버 오류가 발생했습니다.");
+      }
     } else {
       alert("닉네임 확인을 먼저 해주세요");
       setEmailMessage("");

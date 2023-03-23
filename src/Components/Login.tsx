@@ -60,31 +60,32 @@ function LoginPage() {
       });
    }); */
 
-  const onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    axios
-      .post(
+    try {
+      const res = await axios.post(
         "https://seohamserver.shop/user/login",
         {
           email: watch("email"),
           passWord: watch("password"),
         },
         { headers: { "Content-Type": "application/json" } }
-      )
-      .then((res) => {
-        if (res.data.isSuccess === true) {
-          localStorage.setItem("login_token", res.data.result.jwt);
-          localStorage.setItem("userIdx", res.data.result.userIdx);
-          setIsLoggedIn(true);
-          alert("로그인 되었습니다");
-          navigate("/edit");
-        } else {
-          alert("이메일과 비밀번호를 다시 한 번 확인해주세요");
-        }
-      });
+      );
+      if (res.data.isSuccess === true) {
+        localStorage.setItem("login_token", res.data.result.jwt);
+        localStorage.setItem("userIdx", res.data.result.userIdx);
+        setIsLoggedIn(true);
+        alert("로그인 되었습니다");
+        navigate("/edit");
+      } else {
+        alert("이메일과 비밀번호를 다시 한 번 확인해주세요");
+      }
+    } catch (error) {
+      alert("서버 오류가 발생했습니다.");
+    }
   };
 
-  const onShowClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onShowClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
     setShow(!show);
   };
 

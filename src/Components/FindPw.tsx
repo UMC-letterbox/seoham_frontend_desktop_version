@@ -46,72 +46,76 @@ function FindPwPage() {
   } = useForm<UserValue>({
     mode: "onChange",
   });
-  const emailCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const emailCheck = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    axios
-      .post(
+    try {
+      const res = await axios.post(
         "https://seohamserver.shop/mail/send",
         {
           email: watch("email"),
         },
         { headers: { "Content-Type": "application/json" } }
-      )
-      .then((res) => {
-        if (res.status === 200) {
-          window.alert("사용가능한 이메일입니다.인증번호를 보냈습니다");
-          setValue("emailCheck", true);
-        } else {
-          window.alert("이미 사용중이거나 유효하지 않는 이메일입니다");
-          setValue("emailCheck", false);
-        }
-      });
+      );
+      if (res.status === 200) {
+        window.alert("사용가능한 이메일입니다.인증번호를 보냈습니다");
+        setValue("emailCheck", true);
+      } else {
+        window.alert("이미 사용중이거나 유효하지 않는 이메일입니다");
+        setValue("emailCheck", false);
+      }
+    } catch (error) {
+      alert("서버 오류가 발생했습니다.");
+    }
   };
 
-  const certifyCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const certifyCheck = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    axios
-      .post(
+    try {
+      const res = await axios.post(
         "https://seohamserver.shop/mail/check",
         {
           authCode: admireNumber,
           email: watch("email"),
         },
         { headers: { "Content-Type": "application/json" } }
-      )
-      .then((res) => {
-        if (res.data.result === true) {
-          alert("인증번호가 맞습니다 비밀번호 설정을 해주세요");
-          setValue("numberCheck", true);
-        } else {
-          alert("인증번호가 맞지않습니다. 다시 시도해주세요");
-          setValue("numberCheck", false);
-        }
-      });
+      );
+      if (res.data.result === true) {
+        alert("인증번호가 맞습니다 비밀번호 설정을 해주세요");
+        setValue("numberCheck", true);
+      } else {
+        alert("인증번호가 맞지않습니다. 다시 시도해주세요");
+        setValue("numberCheck", false);
+      }
+    } catch (error) {
+      alert("서버 오류가 발생했습니다.");
+    }
   };
 
-  const ChangePw = () => {
+  const ChangePw = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     if (
       watch("emailCheck") === true &&
       watch("numberCheck") === true &&
       watch("password") === watch("passwordConfirm")
     ) {
-      axios
-        .patch(
+      try {
+        const res = await axios.patch(
           "https://seohamserver.shop/user/find-password",
           {
             email: watch("email"),
             passWord: watch("password"),
           },
           { headers: { "Content-Type": "application/json" } }
-        )
-        .then((res) => {
-          if (res.data.result.success === true) {
-            alert("비밀번호가 변경되었습니다. 로그인을 진행해주세요");
-            navigate("/");
-          } else {
-            alert("조금 있다가 다시 시도해주십시오");
-          }
-        });
+        );
+        if (res.data.result.success === true) {
+          alert("비밀번호가 변경되었습니다. 로그인을 진행해주세요");
+          navigate("/");
+        } else {
+          alert("조금 있다가 다시 시도해주십시오");
+        }
+      } catch (error) {
+        alert("서버 오류가 발생했습니다.");
+      }
     } else {
       alert("비밀번호 확인 및 이메일 인증번호 검사를 진행해주세요");
     }
