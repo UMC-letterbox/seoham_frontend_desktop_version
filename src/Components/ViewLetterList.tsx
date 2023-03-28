@@ -3,6 +3,7 @@ import { Letters_tag1, Letters_tag2, LetterType } from "../dummydata";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from '../assets/logo.svg';
 import styled from "styled-components";
+import LetterBtn from "./LetterBtn";
 // import LetterBtn from "./LetterBtn";
 
 interface propsType {
@@ -55,7 +56,7 @@ function ViewLetterList({tagName, tagId, tagColor}:propsType){
     }
     console.log(Letters_tag1)
     // Letters_tag1.map((letter) => {
-    //     console.log(letter, typeof(letter))
+    //     console.log("이건뭐죠", letter, typeof(letter))
     // })
     
     return(
@@ -82,7 +83,8 @@ function ViewLetterList({tagName, tagId, tagColor}:propsType){
                                 <option>보낸이별</option>
                             </Filter>
                         </div>
-                        <div style={{marginTop:"5px", width:"100%", height:"78vh", overflow:"auto", display:"flex", flexDirection:"column", alignItems:"center"}}>
+                        <div style={{marginTop:"5px", width:"100%", height:"78vh", overflow:"auto", display:"flex", flexWrap:"wrap", flexDirection:"row", justifyContent:"center"}}>
+                        {/* <div style={{marginTop:"5px", width:"100%", height:"78vh", overflow:"auto", display:"flex", flexDirection:"column", alignItems:"center"}}> 늘어난 세로 정렬*/}
                         {
                             // 일단 여기 고쳐야함 - tag id 넘겨서 편지 리스트를 받는 api로 변경
                             tagId == 1 ?
@@ -90,11 +92,13 @@ function ViewLetterList({tagName, tagId, tagColor}:propsType){
                                     // <LetterBtn key={index} letter={letter}>
                                     //     <Test>얍</Test>                                
                                     // </LetterBtn>
-                                    <LetterBtnCss key={letter.id} onClick={onClickLetter} id={(letter.id).toString()}>
-                                        {/* background랑 color는 다크모드에서의 css 무시용 */}
-                                        <p className="sender">{letter.sender}</p>
-                                        <p className="date">{letter.date}</p>
-                                    </LetterBtnCss>
+                                    // <LetterBtnCss key={letter.id} onClick={onClickLetter} id={(letter.id).toString()}>
+                                    //     {/* background랑 color는 다크모드에서의 css 무시용 */}
+                                    //     <p className="sender">{letter.sender}</p>
+                                    //     <p className="date">{letter.date}</p>
+                                    // </LetterBtnCss>
+                                    <LetterBtn letter={{id:letter.id, date:letter.date, sender:letter.sender, content:letter.content, img:letter.img}} 
+                                    tagName={tagName} tagId={tagId} tagColor={tagColor}/>
                                 ))
                                 :
                                 tagId == 2 ?
@@ -102,10 +106,12 @@ function ViewLetterList({tagName, tagId, tagColor}:propsType){
                                     // <LetterBtn key={index} letter={letter}>
                                     //     <Test>얍</Test>                                
                                     // </LetterBtn>
-                                    <LetterBtnCss key={letter.id} onClick={onClickLetter} id={(letter.id).toString()}>
-                                        <p className="sender">{letter.sender}</p>
-                                        <p className="date">{letter.date}</p>
-                                    </LetterBtnCss>
+                                    // <LetterBtnCss key={letter.id} onClick={onClickLetter} id={(letter.id).toString()}>
+                                    //     <p className="sender">{letter.sender}</p>
+                                    //     <p className="date">{letter.date}</p>
+                                    // </LetterBtnCss>
+                                    <LetterBtn letter={{id:letter.id, date:letter.date, sender:letter.sender, content:letter.content, img:letter.img}} 
+                                        tagName={tagName} tagId={tagId} tagColor={tagColor}/>
                                 )):
                                 null
                         }

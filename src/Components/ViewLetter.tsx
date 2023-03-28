@@ -26,13 +26,13 @@ function ViewLetter({letterId}:propsType){
     Letters_tag1.map((letter) => {
         if(letter.id == letterId){
             currentLetter = letter
-            // console.log("letter 잘 넘기니?", currentLetter)
+            console.log("letter 잘 넘기니?", currentLetter)
         }
     })
     Letters_tag2.map((letter) => {
         if(letter.id == letterId){
             currentLetter = letter
-            // console.log("letter 잘 넘기니?", currentLetter)
+            console.log("letter 잘 넘기니?", currentLetter)
         }
     })
 

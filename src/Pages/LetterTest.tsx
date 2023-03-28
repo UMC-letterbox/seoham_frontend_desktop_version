@@ -82,6 +82,7 @@ function LetterTest(){
     const [tag, setTag] = useState([location.state.tagName, location.state.tagId, location.state.tagColor])
     const [Letter, setLetter] = useRecoilState(letterState)
     const [plus, setPlus] = useState(false);
+    console.log("location.state 확인: ", location.state)
     console.log("편지 확인 페이지에서의 리스트: ", tag)
     console.log("letter Id:", location.state.letterId)
     console.log("letterId 타입: ", typeof(Number(location.state.letterId)))
