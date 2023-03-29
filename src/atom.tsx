@@ -32,3 +32,20 @@ export const pickedDate = atom<Date>({
   key: "mydate",
   default: new Date(),
 });
+
+//마이페이지 관련(닉네임과 비밀번호 변경 모달버튼)
+export const mypageModal = atom({
+  key: "mypageModal",
+  default: false,
+});
+
+export const mypagePwModal = atom({
+  key: "mypagePwModal",
+  default: false,
+});
+
+//alert대신 custom modal창 관련 state
+export const popUpModal = atom({
+  key: "popUpModal",
+  default: false,
+});
