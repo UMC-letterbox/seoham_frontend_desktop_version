@@ -49,3 +49,8 @@ export const popUpModal = atom({
   key: "popUpModal",
   default: false,
 });
+
+export const popUpMessage = atom({
+  key: "popUpModal",
+  default: "",
+});

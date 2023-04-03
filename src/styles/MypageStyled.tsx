@@ -16,6 +16,14 @@ export const ProfileDiv = styled.div`
   background-color: transparent;
 `;
 
+export const ProfileMinDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0px 10px 0px;
+  background-color: transparent;
+`;
+
 export const InfoP = styled.p`
   margin: 20px 0px 10px 0px;
   background-color: transparent;
@@ -49,4 +57,26 @@ export const LogoutDiv = styled.div`
 export const DeleteButton = styled.button`
   background-color: transparent;
   border: transparent;
+`;
+
+export const ProfileInputButton = styled.button`
+  border: 2px solid;
+  border-radius: 20px;
+  border-color: white;
+  color: white;
+  margin: 0px 10px 0px 10px;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  font-size: 12px;
+  font-weight: bold;
+`;
+
+export const ProfileInputImg = styled.img`
+  width: 12px;
+  height: 12px;
+  margin-right: 5px;
+  filter: brightness(0) invert(1);
 `;
