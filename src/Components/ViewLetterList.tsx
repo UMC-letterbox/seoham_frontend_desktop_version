@@ -97,7 +97,7 @@ function ViewLetterList({tagName, tagId, tagColor}:propsType){
                                     //     <p className="sender">{letter.sender}</p>
                                     //     <p className="date">{letter.date}</p>
                                     // </LetterBtnCss>
-                                    <LetterBtn letter={{id:letter.id, date:letter.date, sender:letter.sender, content:letter.content, img:letter.img}} 
+                                    <LetterBtn key={letter.id} letter={{id:letter.id, date:letter.date, sender:letter.sender, content:letter.content, img:letter.img}} 
                                     tagName={tagName} tagId={tagId} tagColor={tagColor}/>
                                 ))
                                 :
@@ -110,7 +110,7 @@ function ViewLetterList({tagName, tagId, tagColor}:propsType){
                                     //     <p className="sender">{letter.sender}</p>
                                     //     <p className="date">{letter.date}</p>
                                     // </LetterBtnCss>
-                                    <LetterBtn letter={{id:letter.id, date:letter.date, sender:letter.sender, content:letter.content, img:letter.img}} 
+                                    <LetterBtn key={letter.id} letter={{id:letter.id, date:letter.date, sender:letter.sender, content:letter.content, img:letter.img}} 
                                         tagName={tagName} tagId={tagId} tagColor={tagColor}/>
                                 )):
                                 null
