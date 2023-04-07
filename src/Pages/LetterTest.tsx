@@ -5,7 +5,7 @@ import ViewTag from '../Components/ViewTag';
 import Modal_setting from '../Components/Modal_setting';
 
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Letters_tag1, Letters_tag2, LetterType } from '../dummydata';
 import { LetterPaper, LetterContent, PlusBtn } from '../styles/LetterTestCss';
 
@@ -113,9 +113,20 @@ function LetterTest(){
     const onClickBack = () => {
         navigate("/home");
     }
+    const modalClose = () => {
+        console.log("모달창 상태 변경");
+        setModal((modalOpen) => !modalOpen);
+    };
+    const modalRef = useRef<HTMLDivElement>(null)
+    const modalOutSizeClick = (e:any) => {
+        if(modalRef.current === e.target) {
+            setModal((current) => !current)
+        }
+    }
+
     const onClickSet = () => {
         console.log("설정버튼 클릭")
-
+        modalClose()
     }
     return(
         <div>
@@ -130,7 +141,10 @@ function LetterTest(){
                         <BackBtn onClick={onClickBack}><img src='/img/left-arrow.png'/></BackBtn>
                         <span></span>
                         <SetBtn onClick={onClickSet}><img src='/img/dots.png'/></SetBtn>
-                        {modal == true ? <Modal_setting modalClose={setModal}/> : null}
+                        {
+                            modal && 
+                            <Modal_setting modalRef={modalRef} modalClose={modalClose} modalOutSideClick={modalOutSizeClick}/>
+                        }
                     </div>
                     <ViewLetter letterId={Number(location.state.letterId)}/>
                 </LetterPage>
