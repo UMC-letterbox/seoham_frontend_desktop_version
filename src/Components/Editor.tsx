@@ -13,6 +13,8 @@ import {
   pickedDate,
   tagState,
   userInfoState,
+  fullDataState,
+  isExistedState,
 } from "../atom";
 import Calender from "./Caldender";
 import TagCreater from "./TagCreater";
@@ -49,6 +51,12 @@ function Editor() {
     setSender(e.target.value);
   };
   const [isSaveClick, setIsSaveClick] = useState<boolean>(false); //최종 POST버튼
+  
+  //로컬 저장용 atom
+  const [fullData, setFullData] = useRecoilState(fullDataState); 
+  const [isExisted, setIsExisted] = useRecoilState(isExistedState);
+  //
+
   const register = (e: React.MouseEvent<HTMLButtonElement>) => {
     setIsSaveClick((prev) => !prev); //버튼색 바꾸고
     const tagIdlist: any[] = (() => {
@@ -66,6 +74,21 @@ function Editor() {
       tagIdx: tagIdlist, //여기에 선택한 태그리스트
       image: getImg, //이미지 저장
     };
+
+    //로컬 실행용
+    setFullData(
+      {
+        postIdx: 1,
+        sender: sender,
+        date: getdate.slice(0, 4) + getdate.slice(6, -5) + getdate.slice(10, -1),
+        tag: gettags, //여기에 선택한 태그리스트
+        letterIdx: Number(paper), //여기에 선택한 편지지 id,
+        image: getImg, //이미지 저장
+        content: getcontents,
+      }
+    )
+    setIsExisted((cur)=>!cur);
+
     //여기에 fetch 함수
     fetch(`${BASE_URL}/posts/tags/new`, {
       method: "POST",
@@ -148,7 +171,7 @@ function Editor() {
       <Letter>
         <QuillContainer>
           <QuillToolbar />
-          <QuillCustom />
+          <QuillCustom isSaveClick = {isSaveClick}/>
         </QuillContainer>
         <div
           style={{

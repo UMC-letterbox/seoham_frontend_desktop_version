@@ -10,7 +10,7 @@ import BackButton from "../Components/BackButton";
 import { LoginButton } from "../Components/loginStyled";
 import ModalContainername from "../Components/ModalContainer_name";
 import ModalContainerPw from "../Components/ModalContainerPw";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import {
   Infostate,
   UserInfo,
@@ -21,7 +21,7 @@ import {
 import PopupMessage from "../Components/PopupMessage";
 import S3Uploader from "../Components/ProfileAws";
 import axios from "axios";
-import { userInfoState } from "../atom";
+import { userInfoState, isExistedState } from "../atom";
 
 function Mypage() {
   const [modalOpen, setModalOpen] = useRecoilState(popUpModal);
@@ -29,6 +29,10 @@ function Mypage() {
   const [isLoggedIn, setIsLoggedIn] = useRecoilState<boolean>(isLogAtom);
   const [userInfo, setUserInfo] = useRecoilState<UserInfo>(Infostate);
   const [userLogin, setUserLogin] = useRecoilState(userInfoState);
+
+  // 로컬 실행용
+  const isExisted = useRecoilValue(isExistedState);
+
   async function getUserInfo() {
     try {
       const res = await axios.get(
@@ -111,7 +115,8 @@ function Mypage() {
         <S3Uploader />
         <ProfileDiv>
           <LetterIcon />
-          <p style={{ backgroundColor: "transparent" }}>{userInfo.letterNum}</p>
+          {/* <p style={{ backgroundColor: "transparent" }}>{userInfo.letterNum}</p> */}
+          <p style={{ backgroundColor: "transparent" }}>{ isExisted ? 1 : 0}</p>
         </ProfileDiv>
         <ProfileDiv>
           <div style={{ backgroundColor: "transparent" }}>

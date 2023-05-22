@@ -1,13 +1,16 @@
 import { imgSrcState, letterState } from "../atom";
 import axios from "axios";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useEffect } from "react";
 import ReactQuill, { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../styles/quillstyle.css";
 import { useRecoilState } from "recoil";
 import { useNavigate } from "react-router-dom";
 
-function QuillCustom() {
+interface propsType{
+  isSaveClick: boolean
+}
+function QuillCustom({isSaveClick}:propsType) {
   const [value, setValue] = useState("");
   const quillRef = useRef<ReactQuill>(null);
   const navigate = useNavigate();
@@ -19,11 +22,14 @@ function QuillCustom() {
   // };
   const [letter, setLetter] = useRecoilState(letterState);
   const [imgSrc, setImgSrc] = useRecoilState(imgSrcState);
-  const onClickSave = () => {
-    setLetter(value);
-    console.log(value);
+  // const onClickSave = () => {
+  //   console.log(value);
+  // };
+  useEffect(()=>{
     setImgSrc(separateImg());
-  };
+    setLetter(value);
+  }, [isSaveClick])
+
   const onClickMenu = () => {
     navigate("/home");
   };

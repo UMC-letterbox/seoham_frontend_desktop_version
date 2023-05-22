@@ -7,7 +7,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import styled from "styled-components";
-import { currentLettersState, currentTagState, ITag, sortByState, userInfoState, ISender, currentSenderState } from "../atom";
+import { currentLettersState, currentTagState, ITag, sortByState, userInfoState, ISender, currentSenderState, isExistedState, fullDataState } from "../atom";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { FetchLetterList } from "../api";
 import { useQuery } from "react-query";
@@ -50,6 +50,15 @@ function ViewLetterList() {
   
   //선택된 보낸이 불러오기
   const currentSender = useRecoilValue<ISender>(currentSenderState);
+
+  //현재 저장한 편지 리스트가 존재하는지 확인
+  const isExisted = useRecoilValue(isExistedState);
+  const fullData = useRecoilValue(fullDataState);
+  let tagNamelist:string[] = [];
+  fullData.tag.map((t) => (
+    tagNamelist.push(t.text)
+  ));
+  console.log(isExisted, fullData, tagNamelist, currentTag, "확인좀요");
 
   console.log(tagID, currentSender, sortBy, "tag=false, sender=true"); //recoil 정보들 확인
  
@@ -136,8 +145,10 @@ function ViewLetterList() {
       <ViewLetterListGrid>
         {/* 태그나 보낸이 선택을 안한 경우 */}
         {(currentTag.tagName === " " && currentSender.sender === " ") ? <NullContent/> : null}
-        {(currentTag.tagName != " " && currentSender.sender === " " && sortBy) ? <NullContent/> : null}
+        {/* {(currentTag.tagName != " " && !isExisted && sortBy) ? <NullContent/> : null} */}
         {(currentTag.tagName === " " && currentSender.sender != " " && !sortBy) ? <NullContent/> : null}
+        {(currentTag.tagName != " " && currentSender.sender === " " && sortBy) ? <NullContent/> : null}
+        {/* {(currentTag.tagName === " " && currentSender.sender != " " && !sortBy) ? <NullContent/> : null} */}
         {!sortBy ? 
           <TagNameBar color={currentTag.tagColor}>
             <p># {currentTag.tagName}</p>
@@ -164,19 +175,31 @@ function ViewLetterList() {
 
         <ListDivScroll>
           {/* 여기다가작성  LetterList로 접근*/}
+          {/* 태그별 로컬 데이터 출력 */}
+          {
+            isExisted && tagNamelist.includes(currentTag.tagName) ? 
+            <LetterBtn
+              letter={{id:fullData.postIdx, date:fullData.date, sender:fullData.sender, image:fullData.image, content:fullData.content}}                
+              key={fullData.postIdx}               
+            />
+            :
+            null
+          }
+          {/*  서버에서 받는 용
           {LetterList.map((letter, index) => (
             <LetterBtn
               letter={{id:letter.postIdx, date:letter.date, sender:letter.sender, image:letter.image, content:letter.content}}                
               key={letter.postIdx}               
             />
           ))}
+           */}
         </ListDivScroll>
       </ViewLetterListGrid>
     </div>
   );
 }
 
-export default ViewLetterList;
+export default ViewLetterList;  
 
 const NullContent = () => {
   return (

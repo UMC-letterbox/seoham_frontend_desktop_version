@@ -3,7 +3,7 @@ import ViewLetterList from "../Components/ViewLetterList";
 import ViewTag from "../Components/ViewTag";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilSnapshot, useRecoilState, useRecoilValue } from "recoil";
-import { currentSenderState, userInfoState } from "../atom"; // react-quill에서 넘어오는 버전으로 수정해서 다시 만들기
+import { currentSenderState, userInfoState, isExistedState } from "../atom"; // react-quill에서 넘어오는 버전으로 수정해서 다시 만들기
 import axios from "axios";
 import ViewLetter from "../Components/ViewLetter";
 
@@ -80,6 +80,7 @@ function LetterTest() {
   const navigate = useNavigate();
   const userInfo = useRecoilValue(userInfoState);
   const [currentSender, setCurrentSender] = useRecoilState(currentSenderState);
+  const [isExisted, setIsExisted] = useRecoilState(isExistedState);
   // // 현재 선택된 태그 정보 불러오려면
   // const [currentTag, setCurrentTag] = useRecoilState(currentTagState);
   // //const [tag, setTag] = useState([location.state.tagName, location.state.tagId, location.state.tagColor])
@@ -93,22 +94,27 @@ function LetterTest() {
   };
   const BASE_URL = "http://ec2-13-209-41-214.ap-northeast-2.compute.amazonaws.com:8080";
   const onClickDelete = () => {
-    axios({
-      method: 'delete',
-      url: `${BASE_URL}/posts/delete/${location.state.letterId}`,
-      headers: {
-        "X-ACCESS-TOKEN": userInfo.logintoken,
-      }
-    }).then(function(response){
-      console.log(response);
-      window.alert("편지가 삭제되었습니다.");
-      setCurrentSender({sender: " ", count: 0}) 
-        //보낸이의 편지가 모두 비어서 보낸이 자체가 삭제될 수 있으니 보낸이 정보를 초기화, 태그의 경우 비어있을 경우에도 있을 수 있으니 초기화X
-      navigate("/home");
-    }).catch(function(error){
-      console.log(error);
-      window.alert("에러가 발생했습니다.");
-    })
+    // axios({
+    //   method: 'delete',
+    //   url: `${BASE_URL}/posts/delete/${location.state.letterId}`,
+    //   headers: {
+    //     "X-ACCESS-TOKEN": userInfo.logintoken,
+    //   }
+    // }).then(function(response){
+    //   console.log(response);
+    //   window.alert("편지가 삭제되었습니다.");
+    //   setCurrentSender({sender: " ", count: 0}) 
+    //     //보낸이의 편지가 모두 비어서 보낸이 자체가 삭제될 수 있으니 보낸이 정보를 초기화, 태그의 경우 비어있을 경우에도 있을 수 있으니 초기화X
+    //   navigate("/home");
+    // }).catch(function(error){
+    //   console.log(error);
+    //   window.alert("에러가 발생했습니다.");
+    // })
+    setIsExisted((cur) => !cur);
+    window.alert("편지가 삭제되었습니다.");
+    setCurrentSender({sender: " ", count: 0});
+    navigate("/home");
+
   }
   return (
     <div>

@@ -9,7 +9,7 @@ import Tag from "./Tag";
 import { useNavigate } from "react-router-dom";
 import ThemeChangeToggle from "./ThemeChangeToggle";
 // import { FetchSenderList, FetchTagList } from "../api";
-import { ITag, userInfoState, sortByState } from "../atom";
+import { ITag, userInfoState, sortByState, fullDataState, isExistedState } from "../atom";
 //import { useQuery } from "@tanstack/react-query";
 import SenderTagChangeToggle from "./SenderTagChangeToggle";
 import Sender from "./Sender";
@@ -62,6 +62,10 @@ function ViewTag() {
 
   // const [sortBy, setSortBy] = useState<boolean>(false); 편지 페이지에서 다시 돌아왔을 때 보던 페이지 그대로 넘어오려고 recoil로 수정
   const [atomsortBy, setAtomSortBy] = useRecoilState(sortByState); //태그로 정렬: 0, 보낸이로 정렬: 1
+
+  // 로컬 실행 용
+  const fullData = useRecoilValue(fullDataState);
+  const isExisted = useRecoilValue(isExistedState);
 
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
   function FetchTagList() {
@@ -120,15 +124,22 @@ function ViewTag() {
                 />
               ))
           : //그러면 senderLading
-          senderlistLoading
-          ? "isLoading the senders"
-          : senderList?.map((sender: ISender, index) => (
+            isExisted ?
               <Sender
-                key={index}
-                sender={sender.sender}
-                count={sender.count}
+                sender={fullData.sender}
+                count={1}
               />
-            ))
+            :
+              null
+          // senderlistLoading
+          // ? "isLoading the senders"
+          // : senderList?.map((sender: ISender, index) => (
+          //     <Sender
+          //       key={index}
+          //       sender={sender.sender}
+          //       count={sender.count}
+          //     />
+          //   ))
         }
       </TagSenderWrap>
       <SettingWrap>

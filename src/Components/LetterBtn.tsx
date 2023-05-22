@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { useRecoilState } from "recoil";
+import { imgSrcState, letterState } from "../atom";
 
 interface propsType {
     letter: {
@@ -7,12 +9,14 @@ interface propsType {
         date: string;
         sender: string;
         image: string|null;
-        content: string;
+        content: string|null;
     };
 }
 
 function LetterBtn({letter}:propsType){
     console.log("letterbtn", letter, (letter.id).toString(), letter.image)
+    const [imgSrc, setImgSrc] = useRecoilState(imgSrcState);
+    const [lettercontent, setLetter] = useRecoilState(letterState);
     const navigate = useNavigate()
     const onClickLetter = (e:any) => {
         const letterId = e.target.id;
@@ -24,11 +28,11 @@ function LetterBtn({letter}:propsType){
         <LetterBtnCss id={(letter.id).toString()} onClick={onClickLetter}>
             <p className="sender" id={(letter.id).toString()}>{letter.sender}</p>
             {
-                letter.image ?
-                <img src={letter.image} id={(letter.id).toString()}/> :
+                imgSrc ?
+                <img src={imgSrc} id={(letter.id).toString()}/> :
                 null
             }
-            <div className="content" dangerouslySetInnerHTML={{__html:letter.content}}></div>
+            <div className="content" dangerouslySetInnerHTML={{__html:lettercontent}}></div>
             <p className="date" id={(letter.id).toString()}>{letter.date}</p>
         </LetterBtnCss>
     )

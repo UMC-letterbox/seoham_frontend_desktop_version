@@ -165,3 +165,31 @@ export const imgSrcState = atom({
   key: "imgSrc",
   default: "",
 });
+
+
+// 로컬 실행용
+export interface DummyInfo {
+  postIdx: 1;
+  sender: string;
+  date: string;
+  tag: INewTag[];
+  letterIdx: number;
+  image: string | null;
+  content: string | null;
+}
+export const fullDataState = atom<DummyInfo>({
+  key: "fullData",
+  default: {
+    postIdx: 1,
+    sender: "",
+    date: "",
+    tag: [], //여기에 선택한 태그리스트
+    letterIdx: 0, //여기에 선택한 편지지 id,
+    image: "", //이미지 저장
+    content: "",
+  }
+})
+export const isExistedState = atom({
+  key: "isExisted",
+  default: false,
+})

@@ -33,7 +33,7 @@ function Home() {
             <TagCreater />
           </div>
           <QuillToolbar />
-          <QuillCustom />
+          {/* <QuillCustom /> */}
         </div>
       </section>
     </div>

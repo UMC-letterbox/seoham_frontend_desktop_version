@@ -5,8 +5,8 @@ import {
   ContentDiv,
 } from "../styles/LetterTestCss";
 import { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { letterState, currentViewLetter, userInfoState } from "../atom"; // react-quill에서 넘어오는 버전으로 수정해서 다시 만들기
+import { useRecoilState, useRecoilValue } from "recoil";
+import { letterState, currentViewLetter, userInfoState, fullDataState } from "../atom"; // react-quill에서 넘어오는 버전으로 수정해서 다시 만들기
 import styled from "styled-components";
 
 interface propsType {
@@ -25,10 +25,14 @@ const TagBtn = styled.div`
 function ViewLetter({ letterId }: propsType) {
   // console.log("얍", typeof letterId, letterId);
   const [plus, setPlus] = useState(false);
-  // const [Letter, setLetter] = useRecoilState(letterState); //react-quill에서 바로 받아오는 편지 내용입니다.
+  const [Letter, setLetter] = useRecoilState(letterState); //react-quill에서 바로 받아오는 편지 내용입니다.
   const [currentLetter, setCurrentLetter] = useRecoilState(currentViewLetter); //api로 받아오는 편지 정보들
       //(현재 넘어오는 정보들: postIdx, sender, date, tagIdx, tagName, tagColor, letterIdx(편지지), image, content (api 수정 완료!)
   const [userInfo, setUserInfo] = useRecoilState(userInfoState);
+
+  //로컬 실행용 recoil
+  const getLetter = useRecoilValue(fullDataState);
+
   const BASE_URL = "http://ec2-13-209-41-214.ap-northeast-2.compute.amazonaws.com:8080"
   useEffect(() => {
     fetch(`${BASE_URL}/posts/${letterId}`, {
@@ -55,21 +59,22 @@ function ViewLetter({ letterId }: propsType) {
   return (
   <div>
     <div style={{position:"relative", width:"100%", height:"86vh"}}>
-        <LetterPaper paper={(currentLetter.letterIdx)}/>
+      {/* 서버에서 받는 편지 정보인 currentLetter에서 로컬용 atom인 getLetter로 수정했습니다. */}
+        <LetterPaper paper={(getLetter.letterIdx)}/>
         {/* LetterContent는 편지지마다 다른 배치를 위한 div입니다. */}
-        <LetterContent paper={Number(currentLetter.letterIdx)}>
-            <p className='sender'><span>{currentLetter.sender}</span>님에게서 온 편지</p>
+        <LetterContent paper={Number(getLetter.letterIdx)}>
+            <p className='sender'><span>{getLetter.sender}</span>님에게서 온 편지</p>
             {/* image에 content가 들어가고, content는 null이 리턴돼요. */}
-            <ContentDiv clickprops={plus} dangerouslySetInnerHTML={{__html:currentLetter.content}}></ContentDiv>
+            <ContentDiv clickprops={plus} dangerouslySetInnerHTML={{__html:Letter}}></ContentDiv>
             {/* api 수정 이후에 __html:Letter 대신에 currentLetter.content하면 됩니다. */}
             <PlusBtn clickprops={plus} onClick={onClickPlus}>더보기</PlusBtn> 
-            <p className='date'>{currentLetter.date}</p>
+            <p className='date'>{getLetter.date}</p>
         </LetterContent>
     </div>
     <div style={{display:"flex", justifyContent:"center", paddingBottom:"3px"}}>
         {
-            currentLetter.tagIdx.map((id, index) => (
-                <TagBtn color={currentLetter.tagColor[index]} key={id}>{currentLetter.tagName[index]}</TagBtn>
+            getLetter.tag.map((t, index) => (
+                <TagBtn color="#E7C3B1" key={t.id}>{t.text}</TagBtn>
             ))
         }                
     </div>

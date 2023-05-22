@@ -38,12 +38,12 @@ function Test() {
       {back === true ? (
         <div>
           <QuillToolbar />
-          <QuillCustom />
+          {/* <QuillCustom /> */}
         </div>
       ) : (
         <div>
           <QuillToolbar />
-          <QuillCustom />
+          {/* <QuillCustom /> */}
         </div>
       )}
     </div>
